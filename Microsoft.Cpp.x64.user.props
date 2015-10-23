@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <!--debug suffix-->
+    <DebugSuffix Condition="'$(Configuration)'=='Debug'">d</DebugSuffix>
+    <DebugSuffix Condition="'$(Configuration)'!='Debug'"></DebugSuffix>
+    <!--toolset-->
+    <Toolset Condition="'$(PlatformToolset)' == 'v100'">vc10</Toolset>
+    <Toolset Condition="'$(PlatformToolset)' == 'v120'">vc12</Toolset>
+    <Toolset Condition="'$(PlatformToolset)' == 'v140'">vc14</Toolset>
+    <!--platform-->
+    <TargetPlatform Condition="'$(Platform)' == 'Win32'">x86</TargetPlatform>
+    <TargetPlatform Condition="'$(Platform)' == 'x64'">x64</TargetPlatform>
+  </PropertyGroup>
+  <!--target-->
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>$(ProjectName)$(DebugSuffix)</TargetName>
+    <IncludePath>$(IncludePath);$(Armadillo)include;$(Boost)include;$(OpenCV)include;$(VLFeat);$(Library)myx</IncludePath>
+    <LibraryPath>$(LibraryPath);$(Armadillo)lib;$(Boost)$(TargetPlatform)\$(Toolset);$(OpenCV)$(TargetPlatform)\$(Toolset)\lib;$(VLFeat)bin\$(TargetPlatform)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);../include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);../lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>
